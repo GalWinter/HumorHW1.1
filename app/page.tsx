@@ -1,12 +1,19 @@
-import { supabase } from "@/lib/supabase";
+import { getSupabaseClient } from "@/lib/supabase";
 
 export default async function Home() {
-  const { data, error } = await supabase.from("captions").select("*");
-  const status = error ? "Supabase error" : "Supabase connected";
+  const supabase = getSupabaseClient();
+  const { data, error } = supabase
+    ? await supabase.from("captions").select("*")
+    : { data: null, error: null };
+  const status = !supabase
+    ? "Missing Supabase env vars"
+    : error
+      ? "Supabase error"
+      : "Supabase connected";
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-white px-6 py-16 text-black">
-      <div className="text-4xl font-semibold">Hello World</div>
+      <div className="text-4xl font-semibold">Captions</div>
       <div className="text-base font-normal text-zinc-600">{status}</div>
       <div className="w-full max-w-3xl text-sm text-zinc-900">
         <ul className="space-y-3">
