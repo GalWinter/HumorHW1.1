@@ -12,7 +12,7 @@ export default async function ProtectedPage() {
     redirect("/login");
   }
 
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
       get: (name) => cookieStore.get(name)?.value,
