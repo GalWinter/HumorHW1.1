@@ -12,12 +12,11 @@ export async function GET(request: NextRequest) {
   const response = NextResponse.redirect(new URL("/protected", request.url));
   const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
-      get: (name) => request.cookies.get(name)?.value,
-      set: (name, value, options) => {
-        response.cookies.set({ name, value, ...options });
-      },
-      remove: (name, options) => {
-        response.cookies.set({ name, value: "", ...options, maxAge: 0 });
+      getAll: () => request.cookies.getAll(),
+      setAll: (cookiesToSet) => {
+        cookiesToSet.forEach(({ name, value, options }) => {
+          response.cookies.set({ name, value, ...options });
+        });
       },
     },
   });
