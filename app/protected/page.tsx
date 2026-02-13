@@ -1,37 +1,11 @@
-import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+
+import { createClient } from "@/lib/supabase/server";
 
 import SignOutButton from "./sign-out-button";
 
 export default async function ProtectedPage() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!supabaseUrl || !supabaseAnonKey) {
-    redirect("/login");
-  }
-
-  const cookieStore = await cookies();
-  const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
-    cookies: {
-      get: (name) => cookieStore.get(name)?.value,
-      set: (name, value, options) => {
-        try {
-          cookieStore.set({ name, value, ...options });
-        } catch {
-          // Ignore in server components where set is not allowed.
-        }
-      },
-      remove: (name, options) => {
-        try {
-          cookieStore.set({ name, value: "", ...options, maxAge: 0 });
-        } catch {
-          // Ignore in server components where set is not allowed.
-        }
-      },
-    },
-  });
+  const supabase = await createClient();
 
   const {
     data: { session },
