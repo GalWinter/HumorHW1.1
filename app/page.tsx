@@ -2,7 +2,7 @@ import { getSupabaseClient } from "@/lib/supabase";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
-async function voteCaption(formData: FormData) {
+async function vote(formData: FormData) {
   "use server";
 
   const supabase = await createClient();
@@ -66,16 +66,9 @@ export default async function Home() {
               >
                 <div className="flex items-start justify-between gap-4">
                   <p className="text-base text-zinc-900">{captionText}</p>
-                  <form action={voteCaption}>
-                    <input type="hidden" name="caption_id" value={rowId} />
-                    <button
-                      type="submit"
-                      disabled={!rowId}
-                      className="rounded border border-zinc-200 px-2 py-1 text-base"
-                      aria-label="Upvote caption"
-                    >
-                      👍
-                    </button>
+                  <form action={vote}>
+                    <input type="hidden" name="caption_id" value={row.id} />
+                    <button type="submit">👍</button>
                   </form>
                 </div>
               </li>
