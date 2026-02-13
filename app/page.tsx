@@ -1,4 +1,29 @@
 import { getSupabaseClient } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+
+async function voteCaption(formData: FormData) {
+  "use server";
+
+  const supabase = await createClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    redirect("/login");
+  }
+
+  const captionId = formData.get("caption_id");
+
+  if (!captionId) {
+    return;
+  }
+
+  await supabase.from("caption_votes").insert({
+    caption_id: captionId,
+  });
+}
 
 export default async function Home() {
   const supabase = getSupabaseClient();
@@ -17,16 +42,36 @@ export default async function Home() {
       <div className="text-base font-normal text-zinc-600">{status}</div>
       <div className="w-full max-w-3xl text-sm text-zinc-900">
         <ul className="space-y-3">
-          {(data ?? []).map((row, index) => (
+          {(data ?? []).map((row, index) => {
+            const rowId =
+              typeof row.id === "number" || typeof row.id === "string"
+                ? String(row.id)
+                : "";
+
+            return (
             <li
               key={row.id ?? `${row.caption ?? "row"}-${index}`}
               className="rounded-lg border border-zinc-200 bg-white p-4 shadow-sm"
             >
-              <pre className="whitespace-pre-wrap break-words">
-                {JSON.stringify(row, null, 2)}
-              </pre>
+              <div className="flex items-start justify-between gap-4">
+                <pre className="whitespace-pre-wrap break-words">
+                  {JSON.stringify(row, null, 2)}
+                </pre>
+                <form action={voteCaption}>
+                  <input type="hidden" name="caption_id" value={rowId} />
+                  <button
+                    type="submit"
+                    disabled={!rowId}
+                    className="rounded border border-zinc-200 px-2 py-1 text-base"
+                    aria-label="Upvote caption"
+                  >
+                    👍
+                  </button>
+                </form>
+              </div>
             </li>
-          ))}
+            );
+          })}
         </ul>
         {data && data.length === 0 ? (
           <div className="mt-4 text-zinc-500">No rows found.</div>
