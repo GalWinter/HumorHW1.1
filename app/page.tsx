@@ -20,15 +20,15 @@ async function vote(formData: FormData) {
     return;
   }
 
-  const now = new Date().toISOString();
-
-  await supabase.from("caption_votes").insert({
+  const { error } = await supabase.from("caption_votes").insert({
     caption_id: captionId,
     profile_id: session.user.id,
     vote_value: 1,
-    created_datetime_utc: now,
-    modified_datetime_utc: now,
   });
+
+  if (error) {
+    console.error("Failed to insert caption vote", error);
+  }
 
   redirect("/");
 }
