@@ -7,14 +7,14 @@ async function vote(formData: FormData) {
 
   const supabase = await createClient();
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (!session) {
+  if (!user) {
     redirect("/login");
   }
 
-  const captionId = formData.get("caption_id");
+  const captionId = String(formData.get("caption_id") ?? "");
 
   if (!captionId) {
     return;
@@ -22,12 +22,13 @@ async function vote(formData: FormData) {
 
   const { error } = await supabase.from("caption_votes").insert({
     caption_id: captionId,
-    profile_id: session.user.id,
+    profile_id: user.id,
     vote_value: 1,
   });
 
   if (error) {
     console.error("Failed to insert caption vote", error);
+    throw error;
   }
 
   redirect("/");
@@ -73,7 +74,7 @@ export default async function Home() {
                 <div className="flex items-start justify-between gap-4">
                   <p className="text-base text-zinc-900">{captionText}</p>
                   <form action={vote}>
-                    <input type="hidden" name="caption_id" value={row.id} />
+                    <input type="hidden" name="caption_id" value={rowId} />
                     <button type="submit">👍</button>
                   </form>
                 </div>
