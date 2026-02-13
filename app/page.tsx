@@ -48,28 +48,35 @@ export default async function Home() {
                 ? String(row.id)
                 : "";
 
+            const captionText =
+              typeof row.caption === "string"
+                ? row.caption
+                : typeof row.content === "string"
+                  ? row.content
+                  : typeof row.text === "string"
+                    ? row.text
+                    : rowId || "Untitled caption";
+
             return (
-            <li
-              key={row.id ?? `${row.caption ?? "row"}-${index}`}
-              className="rounded-lg border border-zinc-200 bg-white p-4 shadow-sm"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <pre className="whitespace-pre-wrap break-words">
-                  {JSON.stringify(row, null, 2)}
-                </pre>
-                <form action={voteCaption}>
-                  <input type="hidden" name="caption_id" value={rowId} />
-                  <button
-                    type="submit"
-                    disabled={!rowId}
-                    className="rounded border border-zinc-200 px-2 py-1 text-base"
-                    aria-label="Upvote caption"
-                  >
-                    👍
-                  </button>
-                </form>
-              </div>
-            </li>
+              <li
+                key={row.id ?? `${row.caption ?? "row"}-${index}`}
+                className="rounded-lg border border-zinc-200 bg-white p-4 shadow-sm"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <p className="text-base text-zinc-900">{captionText}</p>
+                  <form action={voteCaption}>
+                    <input type="hidden" name="caption_id" value={rowId} />
+                    <button
+                      type="submit"
+                      disabled={!rowId}
+                      className="rounded border border-zinc-200 px-2 py-1 text-base"
+                      aria-label="Upvote caption"
+                    >
+                      👍
+                    </button>
+                  </form>
+                </div>
+              </li>
             );
           })}
         </ul>
