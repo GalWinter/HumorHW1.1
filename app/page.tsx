@@ -22,6 +22,8 @@ async function vote(formData: FormData) {
 
   await supabase.from("caption_votes").insert({
     caption_id: captionId,
+    profile_id: session.user.id,
+    vote_value: 1,
   });
 
   redirect("/");
