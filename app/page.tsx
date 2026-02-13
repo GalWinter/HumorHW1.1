@@ -23,6 +23,8 @@ async function voteCaption(formData: FormData) {
   await supabase.from("caption_votes").insert({
     caption_id: captionId,
   });
+
+  redirect("/");
 }
 
 export default async function Home() {
