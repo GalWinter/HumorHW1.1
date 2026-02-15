@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const storageBucket = process.env.SUPABASE_STORAGE_BUCKET || "captions";
+const storageBucket = process.env.SUPABASE_STORAGE_BUCKET || "images";
 
 export async function POST(request: Request) {
   if (!supabaseUrl || !supabaseAnonKey) {
