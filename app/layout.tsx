@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Humor Hub Remix",
+  title: "Giggle Garden",
   description:
-    "Explore humor themes, generate captions, and vote on your favorites.",
-  keywords: ["humor", "captions", "comedy", "themes"],
+    "Play with comedy prompts, grow captions, and vote on the funniest ones.",
+  keywords: ["giggle", "captions", "comedy", "humor"],
 };
 
 export default function RootLayout({
@@ -23,7 +23,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap"
           rel="stylesheet"
         />
         <script

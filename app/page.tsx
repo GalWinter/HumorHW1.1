@@ -92,8 +92,8 @@ export default async function Home() {
       <nav className="app-navbar">
         <div className="container">
           <Link href="/" className="nav-brand">
-            <i className="bi bi-stars" />
-            Humor Hub Remix
+            <i className="bi bi-tree-fill" />
+            Giggle Garden
           </Link>
           <div className="nav-actions">
             <Link href="/upload" className="nav-btn">
@@ -102,7 +102,7 @@ export default async function Home() {
             </Link>
             <Link href="/captions" className="nav-btn">
               <i className="bi bi-chat-square-quote" />
-              <span>Rate</span>
+              <span>Vote</span>
             </Link>
             <ThemeToggle />
             <div className="nav-user">
@@ -116,7 +116,7 @@ export default async function Home() {
             <form action="/auth/signout" method="post">
               <button type="submit" className="nav-btn">
                 <i className="bi bi-box-arrow-right" />
-                <span>Sign Out</span>
+                <span>Exit</span>
               </button>
             </form>
           </div>
@@ -125,12 +125,12 @@ export default async function Home() {
 
       <section className="hero-section">
         <div className="hero-icon">
-          <i className="bi bi-emoji-laughing" />
+          <i className="bi bi-flower1" />
         </div>
-        <h1 className="hero-title">Humor Themes</h1>
+        <h1 className="hero-title">Comedy Garden</h1>
         <p className="hero-subtitle">
           Welcome back, {user?.user_metadata?.full_name?.split(" ")[0] || "friend"}.
-          Pick a theme and jump into caption voting.
+          Pick a mood and grow some hilarious captions.
         </p>
       </section>
 
@@ -139,11 +139,11 @@ export default async function Home() {
           <div style={{ display: "flex", justifyContent: "center", gap: "0.75rem", marginBottom: "1.5rem", flexWrap: "wrap" }}>
             <span className="theme-badge">
               <i className="bi bi-collection" />
-              {themes.length} Themes
+              {themes.length} Mood Pods
             </span>
             <span className="theme-badge">
-              <i className="bi bi-lightning-charge" />
-              Fresh Vibe
+              <i className="bi bi-tree" />
+              Green Mode
             </span>
           </div>
         )}
@@ -173,7 +173,7 @@ export default async function Home() {
       <div className="rating-cloud">
         <Link href="/captions">
           <i className="bi bi-star-fill" />
-          Start Voting
+          Start Laughing
         </Link>
       </div>
     </main>

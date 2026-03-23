@@ -15,10 +15,10 @@ export default function LoginPage() {
     <main className="login-container">
       <div className="login-card">
         <div className="hero-icon" style={{ marginBottom: "1.2rem" }}>
-          <i className="bi bi-stars" />
+          <i className="bi bi-tree-fill" />
         </div>
-        <h2 className="login-title">Welcome to Humor Hub Remix</h2>
-        <p className="login-subtitle">Sign in to upload and rate captions.</p>
+        <h2 className="login-title">Welcome to Giggle Garden</h2>
+        <p className="login-subtitle">Sign in to plant, grow, and vote on captions.</p>
         <button type="button" onClick={handleLogin} className="google-btn">
           <i className="bi bi-google" />
           Continue with Google

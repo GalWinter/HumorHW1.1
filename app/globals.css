@@ -1,48 +1,48 @@
 :root {
-  --bg-primary: #0d1220;
-  --bg-secondary: #121a2d;
-  --bg-card: rgba(21, 31, 54, 0.72);
-  --bg-card-hover: rgba(28, 40, 68, 0.9);
-  --bg-glass: rgba(94, 234, 212, 0.1);
-  --bg-glass-border: rgba(94, 234, 212, 0.2);
-  --text-primary: #edf2ff;
-  --text-secondary: #a9b6d9;
-  --text-muted: #7f8ab0;
-  --accent: #14b8a6;
-  --accent-light: #2dd4bf;
-  --accent-glow: rgba(20, 184, 166, 0.24);
+  --bg-primary: #04150e;
+  --bg-secondary: #0a2217;
+  --bg-card: rgba(15, 45, 30, 0.74);
+  --bg-card-hover: rgba(20, 59, 39, 0.94);
+  --bg-glass: rgba(74, 222, 128, 0.12);
+  --bg-glass-border: rgba(74, 222, 128, 0.28);
+  --text-primary: #ecfff3;
+  --text-secondary: #b7e7c8;
+  --text-muted: #87c39f;
+  --accent: #22c55e;
+  --accent-light: #4ade80;
+  --accent-glow: rgba(74, 222, 128, 0.2);
   --success: #22c55e;
-  --danger: #f97316;
-  --border: rgba(173, 197, 255, 0.14);
-  --border-hover: rgba(173, 197, 255, 0.26);
+  --danger: #ef4444;
+  --border: rgba(110, 231, 183, 0.22);
+  --border-hover: rgba(110, 231, 183, 0.4);
   --radius: 10px;
   --radius-lg: 16px;
   --radius-xl: 22px;
   --transition: all 0.2s ease;
-  --font: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --navbar-bg: rgba(13, 18, 32, 0.86);
-  --grid-dot: rgba(148, 163, 184, 0.16);
-  --glow-color: rgba(45, 212, 191, 0.17);
+  --font: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --navbar-bg: rgba(4, 21, 14, 0.88);
+  --grid-dot: rgba(74, 222, 128, 0.14);
+  --glow-color: rgba(34, 197, 94, 0.2);
 }
 
 [data-theme="light"] {
-  --bg-primary: #f5f9ff;
-  --bg-secondary: #eaf2ff;
+  --bg-primary: #f0fdf4;
+  --bg-secondary: #dcfce7;
   --bg-card: rgba(255, 255, 255, 0.82);
   --bg-card-hover: rgba(255, 255, 255, 0.98);
-  --bg-glass: rgba(20, 184, 166, 0.08);
-  --bg-glass-border: rgba(20, 184, 166, 0.2);
-  --text-primary: #0f1d3a;
-  --text-secondary: #3f5178;
-  --text-muted: #60719d;
-  --accent: #0f766e;
-  --accent-light: #0d9488;
-  --accent-glow: rgba(15, 118, 110, 0.14);
-  --border: rgba(56, 83, 146, 0.16);
-  --border-hover: rgba(56, 83, 146, 0.28);
-  --navbar-bg: rgba(245, 249, 255, 0.88);
-  --grid-dot: rgba(15, 118, 110, 0.15);
-  --glow-color: rgba(20, 184, 166, 0.12);
+  --bg-glass: rgba(34, 197, 94, 0.1);
+  --bg-glass-border: rgba(34, 197, 94, 0.24);
+  --text-primary: #0f3a1f;
+  --text-secondary: #2f6b45;
+  --text-muted: #4d8b62;
+  --accent: #15803d;
+  --accent-light: #22c55e;
+  --accent-glow: rgba(21, 128, 61, 0.14);
+  --border: rgba(34, 197, 94, 0.24);
+  --border-hover: rgba(34, 197, 94, 0.44);
+  --navbar-bg: rgba(240, 253, 244, 0.92);
+  --grid-dot: rgba(21, 128, 61, 0.11);
+  --glow-color: rgba(34, 197, 94, 0.12);
 }
 
 * {
@@ -61,8 +61,8 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
-  background-size: 26px 26px;
+  background-image: radial-gradient(var(--grid-dot) 1.1px, transparent 1.1px);
+  background-size: 20px 20px;
   pointer-events: none;
   z-index: 0;
 }
@@ -122,6 +122,7 @@ a {
   gap: 0.5rem;
   font-weight: 700;
   color: var(--text-primary);
+  letter-spacing: 0.01em;
 }
 
 .nav-actions {
@@ -137,8 +138,8 @@ a {
   gap: 0.5rem;
   padding: 0.55rem 1rem;
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: transparent;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg-card) 70%, transparent);
   color: var(--text-secondary);
   cursor: pointer;
   transition: var(--transition);
@@ -146,8 +147,8 @@ a {
 
 .theme-toggle {
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   padding: 0;
 }
 
@@ -156,6 +157,7 @@ a {
   background: var(--bg-card-hover);
   border-color: var(--border-hover);
   color: var(--text-primary);
+  transform: translateY(-1px);
 }
 
 .nav-user {
@@ -177,14 +179,14 @@ a {
 
 .hero-section {
   text-align: center;
-  padding: 3.2rem 1rem 2rem;
+  padding: 3.8rem 1rem 2.2rem;
 }
 
 .hero-icon {
-  width: 62px;
-  height: 62px;
+  width: 72px;
+  height: 72px;
   margin: 0 auto 1rem;
-  border-radius: var(--radius-lg);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -194,7 +196,8 @@ a {
 
 .hero-title {
   margin: 0;
-  font-size: 2.2rem;
+  font-size: 2.35rem;
+  letter-spacing: -0.02em;
 }
 
 .hero-subtitle {
@@ -213,9 +216,10 @@ a {
 .glass-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: 42px;
   overflow: hidden;
   transition: var(--transition);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.24);
 }
 
 .theme-card-link {
@@ -227,13 +231,14 @@ a {
 .glass-card:hover {
   background: var(--bg-card-hover);
   border-color: var(--border-hover);
-  transform: translateY(-2px);
+  transform: translateY(-4px) scale(1.012);
 }
 
 .card-image {
   width: 100%;
   height: 170px;
   overflow: hidden;
+  border-radius: 38px 38px 0 0;
 }
 
 .card-image img {
@@ -244,6 +249,7 @@ a {
 
 .card-body {
   padding: 1rem 1.25rem 1.25rem;
+  border-radius: 0 0 38px 38px;
 }
 
 .card-title {
@@ -267,7 +273,7 @@ a {
   align-items: center;
   gap: 0.35rem;
   border: 1px solid var(--bg-glass-border);
-  border-radius: 999px;
+  border-radius: 9999px;
   padding: 0.3rem 0.7rem;
   font-size: 0.74rem;
   color: var(--text-secondary);
@@ -277,9 +283,9 @@ a {
 .btn-accent {
   width: 100%;
   border: 0;
-  border-radius: var(--radius);
+  border-radius: 9999px;
   padding: 0.72rem 1rem;
-  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  background: linear-gradient(90deg, var(--accent-light) 0%, var(--accent) 100%);
   color: #fff;
   font-family: var(--font);
   font-weight: 700;
@@ -288,7 +294,7 @@ a {
 
 .form-input {
   width: 100%;
-  border-radius: var(--radius);
+  border-radius: 9999px;
   border: 1px solid var(--border);
   padding: 0.72rem 0.85rem;
   background: var(--bg-secondary);
@@ -308,7 +314,7 @@ a {
 
 .image-preview {
   width: 100%;
-  border-radius: var(--radius);
+  border-radius: 34px;
   border: 1px solid var(--border);
 }
 
@@ -338,7 +344,7 @@ a {
 .vote-btn {
   width: 40px;
   height: 40px;
-  border-radius: var(--radius);
+  border-radius: 50%;
   border: 1px solid var(--border);
   background: transparent;
   color: var(--text-secondary);
@@ -348,7 +354,7 @@ a {
 .caption-item {
   background: var(--bg-glass);
   border: 1px solid var(--bg-glass-border);
-  border-radius: var(--radius);
+  border-radius: 9999px;
   padding: 0.85rem;
   margin-bottom: 0.5rem;
 }
@@ -370,6 +376,9 @@ a {
 .error-container {
   text-align: center;
   padding: 2.5rem 1.5rem;
+  border-radius: 36px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
 }
 
 .grid {
@@ -422,7 +431,7 @@ a {
   max-width: 420px;
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
+  border-radius: 44px;
   padding: 2rem;
   text-align: center;
 }
@@ -430,7 +439,7 @@ a {
 .google-btn {
   width: 100%;
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 999px;
   background: var(--bg-secondary);
   color: var(--text-primary);
   padding: 0.8rem 1rem;
@@ -440,6 +449,13 @@ a {
   justify-content: center;
   font-weight: 700;
   cursor: pointer;
+  transition: var(--transition);
+}
+
+.google-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-1px);
 }
 
 .rating-cloud {
@@ -449,11 +465,12 @@ a {
 }
 
 .rating-cloud a {
-  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  background: linear-gradient(120deg, var(--accent), var(--accent-light));
   color: #fff;
-  border-radius: 999px;
+  border-radius: 9999px;
   padding: 0.7rem 1rem;
   display: inline-flex;
   gap: 0.5rem;
   align-items: center;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.24);
 }

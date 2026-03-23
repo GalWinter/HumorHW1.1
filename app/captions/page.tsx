@@ -52,8 +52,8 @@ export default async function CaptionsPage() {
       <nav className="app-navbar">
         <div className="container">
           <Link href="/" className="nav-brand">
-            <i className="bi bi-stars" />
-            Humor Hub Remix
+            <i className="bi bi-tree-fill" />
+            Giggle Garden
           </Link>
           <div className="nav-actions">
             <Link href="/" className="nav-btn">
@@ -76,7 +76,7 @@ export default async function CaptionsPage() {
             <form action="/auth/signout" method="post">
               <button type="submit" className="nav-btn">
                 <i className="bi bi-box-arrow-right" />
-                <span>Sign Out</span>
+                <span>Exit</span>
               </button>
             </form>
           </div>
@@ -85,10 +85,10 @@ export default async function CaptionsPage() {
 
       <section className="hero-section">
         <div className="hero-icon">
-          <i className="bi bi-chat-square-quote" />
+          <i className="bi bi-chat-heart-fill" />
         </div>
-        <h1 className="hero-title">Rate Captions</h1>
-        <p className="hero-subtitle">Vote on your favorite generated captions.</p>
+        <h1 className="hero-title">Caption Greenhouse</h1>
+        <p className="hero-subtitle">Pick your favorite caption sprouts and vote.</p>
       </section>
 
       <div className="content-container">
