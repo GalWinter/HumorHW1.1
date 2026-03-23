@@ -48,31 +48,33 @@ export default async function CaptionsPage() {
   const { data: captions, error } = await query;
 
   return (
-    <main>
-      <nav className="app-navbar">
-        <div className="container">
-          <Link href="/" className="nav-brand">
-            <i className="bi bi-tree-fill" />
-            Giggle Garden
-          </Link>
-          <div className="nav-actions">
-            <Link href="/" className="nav-btn">
-              <i className="bi bi-house" />
-              <span>Home</span>
-            </Link>
+    <main className="product-shell">
+      <aside className="sidebar">
+        <Link href="/" className="nav-brand sidebar-brand">
+          <i className="bi bi-tree-fill" />
+          Giggle Garden
+        </Link>
+        <p className="sidebar-label">Pages</p>
+        <div className="sidebar-list">
+          <Link href="/" className="sidebar-item"><i className="bi bi-house" /><span>Home</span></Link>
+          <Link href="/upload" className="sidebar-item"><i className="bi bi-cloud-upload" /><span>Upload</span></Link>
+          <Link href="/captions" className="sidebar-item"><i className="bi bi-chat-square-quote" /><span>Vote</span></Link>
+        </div>
+      </aside>
+
+      <section className="main-pane">
+        <nav className="topbar">
+          <div className="topbar-left"><h1>Caption Voting</h1></div>
+          <div className="topbar-actions">
             <Link href="/upload" className="nav-btn">
               <i className="bi bi-cloud-upload" />
               <span>Upload</span>
             </Link>
+            <Link href="/" className="nav-btn">
+              <i className="bi bi-house" />
+              <span>Home</span>
+            </Link>
             <ThemeToggle />
-            <div className="nav-user">
-              {user?.user_metadata?.avatar_url && (
-                <img src={user.user_metadata.avatar_url} alt="Profile" />
-              )}
-              <span className="nav-user-name">
-                {user?.user_metadata?.full_name || user?.email}
-              </span>
-            </div>
             <form action="/auth/signout" method="post">
               <button type="submit" className="nav-btn">
                 <i className="bi bi-box-arrow-right" />
@@ -80,18 +82,14 @@ export default async function CaptionsPage() {
               </button>
             </form>
           </div>
-        </div>
-      </nav>
+        </nav>
 
-      <section className="hero-section">
-        <div className="hero-icon">
-          <i className="bi bi-chat-heart-fill" />
-        </div>
-        <h1 className="hero-title">Caption Greenhouse</h1>
-        <p className="hero-subtitle">Pick your favorite caption sprouts and vote.</p>
-      </section>
+        <header className="content-head">
+          <h2>Vote on the best generated captions</h2>
+          <p>Each card is shown once so you can quickly rank and move on.</p>
+        </header>
 
-      <div className="content-container">
+        <div className="content-container">
         {error && <div className="alert-error">{error.message}</div>}
 
         <div className="grid grid-2">
@@ -128,7 +126,8 @@ export default async function CaptionsPage() {
             </p>
           </div>
         )}
-      </div>
+        </div>
+      </section>
     </main>
   );
 }

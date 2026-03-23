@@ -88,14 +88,29 @@ export default async function Home() {
   }
 
   return (
-    <main>
-      <nav className="app-navbar">
-        <div className="container">
-          <Link href="/" className="nav-brand">
-            <i className="bi bi-tree-fill" />
-            Giggle Garden
-          </Link>
-          <div className="nav-actions">
+    <main className="product-shell">
+      <aside className="sidebar">
+        <Link href="/" className="nav-brand sidebar-brand">
+          <i className="bi bi-tree-fill" />
+          Giggle Garden
+        </Link>
+        <p className="sidebar-label">Mood Categories</p>
+        <div className="sidebar-list">
+          {themes?.map((theme: HumorTheme) => (
+            <Link key={theme.id} href="/captions" className="sidebar-item">
+              <i className={`bi ${getIconForTheme(theme.name)}`} />
+              <span>{theme.name}</span>
+            </Link>
+          ))}
+        </div>
+      </aside>
+
+      <section className="main-pane">
+        <nav className="topbar">
+          <div className="topbar-left">
+            <h1>Comedy Feed</h1>
+          </div>
+          <div className="topbar-actions">
             <Link href="/upload" className="nav-btn">
               <i className="bi bi-cloud-upload" />
               <span>Upload</span>
@@ -105,6 +120,23 @@ export default async function Home() {
               <span>Vote</span>
             </Link>
             <ThemeToggle />
+            <form action="/auth/signout" method="post">
+              <button type="submit" className="nav-btn">
+                <i className="bi bi-box-arrow-right" />
+                <span>Exit</span>
+              </button>
+            </form>
+          </div>
+        </nav>
+
+        <header className="content-head">
+          <h2>Welcome back, {user?.user_metadata?.full_name?.split(" ")[0] || "friend"}</h2>
+          <p>Browse themes in a feed layout and jump into caption voting.</p>
+          <div className="head-badges">
+            <span className="theme-badge">
+              <i className="bi bi-collection" />
+              {themes?.length || 0} Themes
+            </span>
             <div className="nav-user">
               {user?.user_metadata?.avatar_url && (
                 <img src={user.user_metadata.avatar_url} alt="Profile" />
@@ -113,49 +145,18 @@ export default async function Home() {
                 {user?.user_metadata?.full_name || user?.email}
               </span>
             </div>
-            <form action="/auth/signout" method="post">
-              <button type="submit" className="nav-btn">
-                <i className="bi bi-box-arrow-right" />
-                <span>Exit</span>
-              </button>
-            </form>
           </div>
-        </div>
-      </nav>
+        </header>
 
-      <section className="hero-section">
-        <div className="hero-icon">
-          <i className="bi bi-flower1" />
-        </div>
-        <h1 className="hero-title">Comedy Garden</h1>
-        <p className="hero-subtitle">
-          Welcome back, {user?.user_metadata?.full_name?.split(" ")[0] || "friend"}.
-          Pick a mood and grow some hilarious captions.
-        </p>
-      </section>
-
-      <div className="content-container">
-        {!!themes?.length && (
-          <div style={{ display: "flex", justifyContent: "center", gap: "0.75rem", marginBottom: "1.5rem", flexWrap: "wrap" }}>
-            <span className="theme-badge">
-              <i className="bi bi-collection" />
-              {themes.length} Mood Pods
-            </span>
-            <span className="theme-badge">
-              <i className="bi bi-tree" />
-              Green Mode
-            </span>
-          </div>
-        )}
-        <div className="grid grid-3">
+        <div className="feed-list">
           {themes?.map((theme: HumorTheme) => (
             <Link key={theme.id} href="/captions" className="theme-card-link">
-              <div className="theme-card">
-                <div className="card-image">
+              <article className="feed-card">
+                <div className="feed-image-wrap">
                   <img src={getImageForTheme(theme.name)} alt={theme.name} />
                 </div>
-                <div className="card-body">
-                  <h2 className="card-title">{theme.name}</h2>
+                <div className="feed-content">
+                  <h3 className="card-title">{theme.name}</h3>
                   {theme.description && <p className="card-description">{theme.description}</p>}
                   <div className="card-meta">
                     <i className={`bi ${getIconForTheme(theme.name)}`} />
@@ -164,18 +165,11 @@ export default async function Home() {
                     </span>
                   </div>
                 </div>
-              </div>
+              </article>
             </Link>
           ))}
         </div>
-      </div>
-
-      <div className="rating-cloud">
-        <Link href="/captions">
-          <i className="bi bi-star-fill" />
-          Start Laughing
-        </Link>
-      </div>
+      </section>
     </main>
   );
 }

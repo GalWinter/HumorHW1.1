@@ -12,31 +12,32 @@ export default async function UploadPage() {
   } = await supabase.auth.getUser();
 
   return (
-    <main>
-      <nav className="app-navbar">
-        <div className="container">
-          <Link href="/" className="nav-brand">
-            <i className="bi bi-tree-fill" />
-            Giggle Garden
-          </Link>
-          <div className="nav-actions">
-            <Link href="/" className="nav-btn">
-              <i className="bi bi-house" />
-              <span>Home</span>
-            </Link>
+    <main className="product-shell">
+      <aside className="sidebar">
+        <Link href="/" className="nav-brand sidebar-brand">
+          <i className="bi bi-tree-fill" />
+          Giggle Garden
+        </Link>
+        <p className="sidebar-label">Pages</p>
+        <div className="sidebar-list">
+          <Link href="/" className="sidebar-item"><i className="bi bi-house" /><span>Home</span></Link>
+          <Link href="/upload" className="sidebar-item"><i className="bi bi-cloud-upload" /><span>Upload</span></Link>
+          <Link href="/captions" className="sidebar-item"><i className="bi bi-chat-square-quote" /><span>Vote</span></Link>
+        </div>
+      </aside>
+      <section className="main-pane">
+        <nav className="topbar">
+          <div className="topbar-left"><h1>Caption Studio</h1></div>
+          <div className="topbar-actions">
             <Link href="/captions" className="nav-btn">
               <i className="bi bi-chat-square-quote" />
               <span>Vote</span>
             </Link>
+            <Link href="/" className="nav-btn">
+              <i className="bi bi-house" />
+              <span>Home</span>
+            </Link>
             <ThemeToggle />
-            <div className="nav-user">
-              {user?.user_metadata?.avatar_url && (
-                <img src={user.user_metadata.avatar_url} alt="Profile" />
-              )}
-              <span className="nav-user-name">
-                {user?.user_metadata?.full_name || user?.email}
-              </span>
-            </div>
             <form action="/auth/signout" method="post">
               <button type="submit" className="nav-btn">
                 <i className="bi bi-box-arrow-right" />
@@ -44,26 +45,26 @@ export default async function UploadPage() {
               </button>
             </form>
           </div>
-        </div>
-      </nav>
+        </nav>
 
-      <section className="hero-section">
-        <div className="hero-icon">
-          <i className="bi bi-camera-fill" />
-        </div>
-        <h1 className="hero-title">Plant New Captions</h1>
-        <p className="hero-subtitle">Drop an image and grow a batch of funny lines.</p>
-      </section>
+        <header className="content-head">
+          <h2>Upload an image and generate multiple captions</h2>
+          <p>
+            Everything is still the same flow, now in a cleaner studio layout for{" "}
+            {user?.user_metadata?.full_name || user?.email || "you"}.
+          </p>
+        </header>
 
-      <div className="content-container">
-        <div style={{ maxWidth: "560px", margin: "0 auto" }}>
-          <div className="glass-card">
-            <div className="card-body">
-              <UploadForm />
+        <div className="content-container">
+          <div style={{ maxWidth: "760px", margin: "0 auto" }}>
+            <div className="glass-card">
+              <div className="card-body">
+                <UploadForm />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </main>
   );
 }
