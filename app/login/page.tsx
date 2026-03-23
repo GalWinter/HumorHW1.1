@@ -12,14 +12,18 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-white px-6">
-      <button
-        type="button"
-        onClick={handleLogin}
-        className="rounded-lg border border-zinc-300 bg-black px-5 py-3 text-base font-semibold text-white"
-      >
-        Continue with Google
-      </button>
+    <main className="login-container">
+      <div className="login-card">
+        <div className="hero-icon" style={{ marginBottom: "1.2rem" }}>
+          <i className="bi bi-stars" />
+        </div>
+        <h2 className="login-title">Welcome to Humor Hub Remix</h2>
+        <p className="login-subtitle">Sign in to upload and rate captions.</p>
+        <button type="button" onClick={handleLogin} className="google-btn">
+          <i className="bi bi-google" />
+          Continue with Google
+        </button>
+      </div>
     </main>
   );
 }

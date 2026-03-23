@@ -1,111 +1,69 @@
-"use client";
+import { createClient } from "@/lib/supabase/server";
+import Link from "next/link";
+import ThemeToggle from "../ThemeToggle";
+import UploadForm from "./UploadForm";
 
-import { useState } from "react";
+export const dynamic = "force-dynamic";
 
-import { createClient } from "@/lib/supabase/client";
-
-export default function UploadPage() {
-  const [caption, setCaption] = useState("");
-  const [file, setFile] = useState<File | null>(null);
-  const [status, setStatus] = useState<string | null>(null);
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setStatus(null);
-
-    if (!file) {
-      setStatus("Please select an image.");
-      return;
-    }
-
-    const supabase = createClient();
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-
-    if (!session) {
-      window.location.href = "/login";
-      return;
-    }
-
-    const ext = file.name.split(".").pop() || "png";
-    const contentType = file.type || "application/octet-stream";
-
-    const presignResponse = await fetch("/api/uploads/presign", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session.access_token}`,
-      },
-      body: JSON.stringify({ contentType, ext }),
-    });
-
-    if (!presignResponse.ok) {
-      setStatus("Failed to get upload URL.");
-      return;
-    }
-
-    const { uploadUrl, path } = await presignResponse.json();
-
-    const uploadResponse = await fetch(uploadUrl, {
-      method: "PUT",
-      headers: {
-        "Content-Type": contentType,
-      },
-      body: file,
-    });
-
-    if (!uploadResponse.ok) {
-      setStatus("Upload failed.");
-      return;
-    }
-
-    const captionResponse = await fetch("/api/captions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session.access_token}`,
-      },
-      body: JSON.stringify({ imagePath: path, caption }),
-    });
-
-    if (!captionResponse.ok) {
-      setStatus("Failed to create caption.");
-      return;
-    }
-
-    setCaption("");
-    setFile(null);
-    setStatus("Caption created.");
-  };
+export default async function UploadPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-white px-6 py-16 text-black">
-      <div className="text-3xl font-semibold">Upload Caption</div>
-      <form
-        onSubmit={handleSubmit}
-        className="flex w-full max-w-md flex-col gap-4"
-      >
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(event) => setFile(event.target.files?.[0] ?? null)}
-        />
-        <input
-          type="text"
-          value={caption}
-          onChange={(event) => setCaption(event.target.value)}
-          placeholder="Caption text"
-          className="rounded border border-zinc-300 px-3 py-2"
-        />
-        <button
-          type="submit"
-          className="rounded bg-black px-4 py-2 text-white"
-        >
-          Create Caption
-        </button>
-      </form>
-      {status ? <div className="text-sm text-zinc-600">{status}</div> : null}
+    <main>
+      <nav className="app-navbar">
+        <div className="container">
+          <Link href="/" className="nav-brand">
+            <i className="bi bi-stars" />
+            Humor Hub Remix
+          </Link>
+          <div className="nav-actions">
+            <Link href="/" className="nav-btn">
+              <i className="bi bi-house" />
+              <span>Home</span>
+            </Link>
+            <Link href="/captions" className="nav-btn">
+              <i className="bi bi-chat-square-quote" />
+              <span>Rate</span>
+            </Link>
+            <ThemeToggle />
+            <div className="nav-user">
+              {user?.user_metadata?.avatar_url && (
+                <img src={user.user_metadata.avatar_url} alt="Profile" />
+              )}
+              <span className="nav-user-name">
+                {user?.user_metadata?.full_name || user?.email}
+              </span>
+            </div>
+            <form action="/auth/signout" method="post">
+              <button type="submit" className="nav-btn">
+                <i className="bi bi-box-arrow-right" />
+                <span>Sign Out</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+      <section className="hero-section">
+        <div className="hero-icon">
+          <i className="bi bi-image" />
+        </div>
+        <h1 className="hero-title">Generate Captions</h1>
+        <p className="hero-subtitle">Upload an image and generate fresh captions.</p>
+      </section>
+
+      <div className="content-container">
+        <div style={{ maxWidth: "560px", margin: "0 auto" }}>
+          <div className="glass-card">
+            <div className="card-body">
+              <UploadForm />
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }
